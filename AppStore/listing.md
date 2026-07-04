@@ -72,9 +72,9 @@ Say hi to Hypeshot! Area, window, and full-screen capture; a fast annotation edi
 - All processing on-device; no third-party SDKs, no tracking.
 
 ## URLs
-- Support URL: TODO (e.g. https://shafi.dev/hypeshot — needs a page before submission)
-- Marketing URL (optional): TODO
-- Privacy Policy URL: TODO (required; a one-paragraph "no data collected" page is sufficient)
+- Support URL: https://hypecode.app/hypeshot/support
+- Marketing URL (optional): https://hypecode.app
+- Privacy Policy URL: https://hypecode.app/hypeshot/privacy
 
 ## Copyright
 © 2026 Shafi
