@@ -1,0 +1,74 @@
+name: Hypeshot
+options:
+  bundleIdPrefix: com.shafi
+  deploymentTarget:
+    macOS: "26.0"
+  createIntermediateGroups: true
+
+targets:
+  Hypeshot:
+    type: application
+    platform: macOS
+    sources:
+      - path: Hypeshot
+    info:
+      path: Hypeshot/Info.plist
+      properties:
+        CFBundleDisplayName: Hypeshot
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        LSUIElement: true
+        LSApplicationCategoryType: public.app-category.photography
+        NSHumanReadableCopyright: "© 2026 Shafi. All rights reserved."
+    entitlements:
+      path: Hypeshot/Hypeshot.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.files.user-selected.read-write: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shafi.hypeshot
+        PRODUCT_NAME: Hypeshot
+        SWIFT_VERSION: "5.0"
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_IDENTITY: "-"
+        ENABLE_HARDENED_RUNTIME: false
+        COMBINE_HIDPI_IMAGES: true
+        GENERATE_INFOPLIST_FILE: false
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+
+  HypeshotTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: HypeshotTests
+      - path: Hypeshot/Hypeshot.storekit
+        buildPhase: resources
+    dependencies:
+      - target: Hypeshot
+      - sdk: StoreKitTest.framework
+        weak: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shafi.hypeshot.tests
+        SWIFT_VERSION: "5.0"
+        GENERATE_INFOPLIST_FILE: true
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Hypeshot.app/Contents/MacOS/Hypeshot"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        CODE_SIGN_IDENTITY: "-"
+
+schemes:
+  Hypeshot:
+    build:
+      targets:
+        Hypeshot: all
+        HypeshotTests: [test]
+    run:
+      config: Debug
+      storeKitConfiguration: Hypeshot/Hypeshot.storekit
+    test:
+      config: Debug
+      targets:
+        - HypeshotTests
