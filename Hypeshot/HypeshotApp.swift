@@ -21,6 +21,12 @@ struct HypeshotApp: App {
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
+#if DEBUG
+        if ShowcaseRunner.isRequested {
+            Task { await ShowcaseRunner.run() }
+            return
+        }
+#endif
         HotkeyManager.shared.registerAll()
         Task { await ProStore.shared.start() }
     }

@@ -7,8 +7,16 @@ final class EditorWindowController: NSObject, NSWindowDelegate {
 
     private var window: NSWindow?
 
+#if DEBUG
+    /// Lets showcase mode stage annotations on the live editor.
+    private(set) var debugViewModel: EditorViewModel?
+#endif
+
     func show(screenshot: Screenshot, autoSavedTo savedURL: URL? = nil) {
         let viewModel = EditorViewModel(screenshot: screenshot)
+#if DEBUG
+        debugViewModel = viewModel
+#endif
         let view = EditorView(vm: viewModel)
             .environmentObject(ProStore.shared)
         let hosting = NSHostingController(rootView: view)

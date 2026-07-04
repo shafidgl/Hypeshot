@@ -79,15 +79,18 @@ Say hi to Hypeshot! Area, window, and full-screen capture; a fast annotation edi
 ## Copyright
 © 2026 Shafi
 
-## Screenshots
-Mac App Store accepts 1280×800, 1440×900, 2560×1600, or 2880×1800 (up to 10).
-- `screenshot-1-hero.png` (2880×1800) — headline + beautified annotated capture. ✅ in this folder
-- Suggested to add before submission (capture from the real app once signed):
-  2. Editor with all annotation tools visible
-  3. Beautify panel with gradient presets
-  4. Pinned screenshot floating over a document
-  5. History grid
-  6. Paywall/Pro feature summary
+## Screenshots (all 2880×1800, in this folder — real app windows via debug showcase mode)
+Upload in this order:
+1. `screenshot-1-annotate.png` — editor with arrow, box, highlight, redaction, and text
+2. `screenshot-2-beautify.png` — the renderer's actual Beautify output (PRO)
+3. `screenshot-3-history.png` — history grid with demo captures (PRO)
+4. `screenshot-4-pin.png` — pinned floating screenshot (PRO)
+5. `screenshot-5-workflow.png` — Settings: custom shortcuts, save folder, clipboard behavior
+6. `screenshot-6-pro.png` — paywall / one-time purchase
+
+Regenerate after UI changes: build Debug, run with `HYPESHOT_SHOWCASE=1`, then
+`swift Tools/compose_shots.swift "<container>/Library/Application Support/Hypeshot/Showcase" AppStore/`.
+Grant the debug build Screen Recording first so window snapshots use true pixels (toolbar icons).
 
 ## App Review notes (paste into the Review Notes field)
 Hypeshot is a menu bar app (no Dock icon). After launch, look for the camera viewfinder icon in the menu bar. Screen Recording permission is required for capture; the app deep-links to System Settings and offers a relaunch if it is denied. The "Unlock Pro" purchase is a non-consumable StoreKit 2 IAP; Pro features (Beautify toggle, History, OCR, Pin) show the paywall when locked. No account or server is involved.

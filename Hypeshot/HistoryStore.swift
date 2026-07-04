@@ -41,6 +41,13 @@ final class HistoryStore: ObservableObject {
         }
     }
 
+#if DEBUG
+    /// Showcase mode only: swap the visible list without touching disk.
+    func debugSetEntries(_ newEntries: [Entry]) {
+        entries = newEntries
+    }
+#endif
+
     func delete(_ entry: Entry) {
         try? FileManager.default.removeItem(at: entry.url)
         entries.removeAll { $0.id == entry.id }

@@ -33,6 +33,7 @@
 		CDDA4BC6A529E5B80550B518 /* StoreKitTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F3B115B6DEA970F56BC43F8 /* StoreKitTest.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D0C047E880C1F1E02EC8C97A /* SelectionOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA70A6E17F60371C04A0B3 /* SelectionOverlay.swift */; };
 		D4D289049432C02FB654E66D /* OCRServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6438D59603090108DE9DF3FF /* OCRServiceTests.swift */; };
+		DD20A7FA1E6635F69164B8DB /* ShowcaseMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4CAEB91B47B07ACF261EB /* ShowcaseMode.swift */; };
 		E29A47222C8670AF8950F18F /* ExporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8684350D46E4BA8281A2D38 /* ExporterTests.swift */; };
 		E35F4CA8004019117EA56BE5 /* Exporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0C5FEDB31779D91F8CCE02 /* Exporter.swift */; };
 		FA8B77DC4BEF004565F387D7 /* Hypeshot.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 0BE5FCB710DD335B37733836 /* Hypeshot.storekit */; };
@@ -49,7 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0BE5FCB710DD335B37733836 /* Hypeshot.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hypeshot.storekit; sourceTree = "<group>"; };
+		0BE5FCB710DD335B37733836 /* Hypeshot.storekit */ = {isa = PBXFileReference; path = Hypeshot.storekit; sourceTree = "<group>"; };
 		0F3B115B6DEA970F56BC43F8 /* StoreKitTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKitTest.framework; path = System/Library/Frameworks/StoreKitTest.framework; sourceTree = SDKROOT; };
 		161E4C2281A113185AE77500 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		31AA70A6E17F60371C04A0B3 /* SelectionOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionOverlay.swift; sourceTree = "<group>"; };
@@ -69,6 +70,7 @@
 		8ACCAC92415138AE7D98A2FA /* Hypeshot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hypeshot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C222EB7D6C79A69199B634D /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
 		8D1F76906A8453F3E9D72EAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		97C4CAEB91B47B07ACF261EB /* ShowcaseMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseMode.swift; sourceTree = "<group>"; };
 		9CF974AFCCCDAB101E16C83F /* HypeshotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HypeshotApp.swift; sourceTree = "<group>"; };
 		A0650C829591971A08191111 /* CaptureEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureEngine.swift; sourceTree = "<group>"; };
 		A8684350D46E4BA8281A2D38 /* ExporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExporterTests.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				438F1B8DBA39CF39C7A2B77E /* SaveLocationStore.swift */,
 				31AA70A6E17F60371C04A0B3 /* SelectionOverlay.swift */,
 				161E4C2281A113185AE77500 /* SettingsView.swift */,
+				97C4CAEB91B47B07ACF261EB /* ShowcaseMode.swift */,
 			);
 			path = Hypeshot;
 			sourceTree = "<group>";
@@ -213,7 +216,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 2660;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					050378FC418528AEC847A2C2 = {
 						DevelopmentTeam = 2EQKU4538X;
@@ -301,6 +304,7 @@
 				9518474222619C0BE41C0FA4 /* SaveLocationStore.swift in Sources */,
 				D0C047E880C1F1E02EC8C97A /* SelectionOverlay.swift in Sources */,
 				3DA0297CC11DAF6DA5EBA622 /* SettingsView.swift in Sources */,
+				DD20A7FA1E6635F69164B8DB /* ShowcaseMode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,7 +324,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 2EQKU4538X;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -343,12 +347,10 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
+				DEVELOPMENT_TEAM = 2EQKU4538X;
+				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Hypeshot/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = HyperShot;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -367,7 +369,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 2EQKU4538X;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -390,12 +392,10 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
+				DEVELOPMENT_TEAM = 2EQKU4538X;
+				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Hypeshot/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = HyperShot;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -443,12 +443,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 2EQKU4538X;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -469,7 +466,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -510,12 +506,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 2EQKU4538X;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -529,7 +522,6 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;

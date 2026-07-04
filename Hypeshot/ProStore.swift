@@ -77,6 +77,11 @@ final class ProStore: ObservableObject {
         }
     }
 
+#if DEBUG
+    /// Marketing-screenshot showcase only — never reachable in release builds.
+    func debugUnlockForShowcase() { isPro = true }
+#endif
+
     private func refreshEntitlement() async {
         for await entitlement in StoreKit.Transaction.currentEntitlements {
             if case .verified(let transaction) = entitlement,
