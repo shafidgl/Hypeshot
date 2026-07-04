@@ -2,8 +2,9 @@
 
 All fields ready to paste into App Store Connect. Character limits noted and verified.
 
-## App name (30 max)
-Hypeshot
+## App name (30 max — 12 used)
+Hypeshot Pro
+(exact name "Hypeshot" is taken on the App Store; a suffixed form like "Hypeshot — Screenshot Studio" (28 chars) may also be available if the plain brand is preferred)
 
 ## Subtitle (30 max — 28 used)
 Capture. Annotate. Beautify.
@@ -60,7 +61,9 @@ Say hi to Hypeshot! Area, window, and full-screen capture; a fast annotation edi
 - In-App Purchase (non-consumable):
   - Product ID: `com.shafi.hypeshot.pro`
   - Reference name: Unlock Pro
-  - Display name (30 max): Hypeshot Pro
+  - Display name (30 max — 10 used): Pro Unlock
+    (renamed from "Hypeshot Pro" because the app itself is now named "Hypeshot Pro" —
+    an IAP with the same name as the app reads as a duplicate in the purchase sheet)
   - Description (45 max — 44 used): Beautify, pins, history, OCR, export presets
   - Price: $7.99 (Tier equivalent)
 
