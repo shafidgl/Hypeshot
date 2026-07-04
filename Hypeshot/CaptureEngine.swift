@@ -31,7 +31,7 @@ final class CaptureController {
                 }
                 presentOverlay(on: screen, mode: .window(windows))
             } catch {
-                NSSound.beep()
+                handleCaptureFailure(error)
             }
         }
     }
@@ -94,7 +94,7 @@ final class CaptureController {
             let image = try await SCScreenshotManager.captureImage(contentFilter: filter, configuration: config)
             finish(image)
         } catch {
-            NSSound.beep()
+            handleCaptureFailure(error)
         }
     }
 
@@ -110,6 +110,21 @@ final class CaptureController {
             let image = try await SCScreenshotManager.captureImage(contentFilter: filter, configuration: config)
             finish(image)
         } catch {
+            handleCaptureFailure(error)
+        }
+    }
+
+    /// ScreenCaptureKit reports a missing/stale Screen Recording grant as an
+    /// error at capture time even when the Settings checkbox looks on (the
+    /// grant is bound to the app's code signature and only applied at launch).
+    /// Route those to the permission walkthrough instead of a mystery beep.
+    private func handleCaptureFailure(_ error: Error) {
+        let nsError = error as NSError
+        let userDeclined = nsError.domain == SCStreamErrorDomain
+            && nsError.code == SCStreamError.Code.userDeclined.rawValue
+        if userDeclined || !CGPreflightScreenCaptureAccess() {
+            PermissionWindowController.shared.show()
+        } else {
             NSSound.beep()
         }
     }
@@ -117,12 +132,41 @@ final class CaptureController {
     private func finish(_ image: CGImage) {
         let shot = Screenshot(image: image, capturedAt: .now)
         HistoryStore.shared.add(shot)
-        // Missing key means the default (on), matching @AppStorage in SettingsView.
-        let copyAfterCapture = UserDefaults.standard.object(forKey: "copyAfterCapture") as? Bool ?? true
-        if copyAfterCapture {
-            Exporter.copyToPasteboard(image)
+
+        // Auto-save into the user's chosen folder when enabled — also needed
+        // when the clipboard should carry the saved file rather than pixels.
+        let copyMode = CaptureCopyMode.current
+        let autoSave = UserDefaults.standard.bool(forKey: CaptureCopyMode.autoSaveKey)
+        var savedURL: URL?
+        if autoSave || copyMode == .file {
+            savedURL = SaveLocationStore.shared.withAccess { folder in
+                let url = Exporter.uniqueURL(in: folder,
+                                             preferredName: ExportPreset.standard.filename(for: shot.capturedAt))
+                try Exporter.write(image, to: url, preset: .standard)
+                return url
+            }
         }
-        EditorWindowController.shared.show(screenshot: shot)
+
+        switch copyMode {
+        case .off:
+            break
+        case .image:
+            Exporter.copyToPasteboard(image)
+        case .file:
+            if let savedURL {
+                Exporter.copyFileToPasteboard(savedURL)
+            } else {
+                Exporter.copyToPasteboard(image) // no save folder configured — degrade to pixels
+            }
+        }
+
+        if CaptureCopyMode.opensEditorAfterCapture {
+            EditorWindowController.shared.show(screenshot: shot, autoSavedTo: savedURL)
+        } else {
+            // No editor window — confirm the capture audibly so it doesn't
+            // feel like nothing happened.
+            NSSound(named: "Pop")?.play()
+        }
     }
 
     // MARK: - Permission

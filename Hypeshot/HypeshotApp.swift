@@ -32,14 +32,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
 struct MenuContent: View {
     @EnvironmentObject private var pro: ProStore
+    @ObservedObject private var hotkeys = HotkeyStore.shared
 
     var body: some View {
-        Button("Capture Area") { CaptureController.shared.captureArea() }
-            .keyboardShortcut("7", modifiers: [.command, .shift])
-        Button("Capture Window") { CaptureController.shared.captureWindow() }
-            .keyboardShortcut("8", modifiers: [.command, .shift])
-        Button("Capture Full Screen") { CaptureController.shared.captureFullScreen() }
-            .keyboardShortcut("9", modifiers: [.command, .shift])
+        ForEach(CaptureAction.allCases) { action in
+            Button(action.title) { action.perform() }
+                .hotkeyShortcut(hotkeys.spec(for: action))
+        }
 
         Divider()
 

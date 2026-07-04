@@ -70,4 +70,31 @@ final class ModelsTests: XCTestCase {
         let shot = Screenshot(image: TestImages.solid(width: 123, height: 45), capturedAt: .now)
         XCTAssertEqual(shot.pixelSize, CGSize(width: 123, height: 45))
     }
+
+    // MARK: Capture copy mode
+
+    func testCaptureCopyModeMigratesLegacyBooleanAndPrefersExplicitValue() {
+        let defaults = UserDefaults.standard
+        let savedMode = defaults.string(forKey: CaptureCopyMode.defaultsKey)
+        let savedLegacy = defaults.object(forKey: "copyAfterCapture")
+        defer {
+            savedMode.map { defaults.set($0, forKey: CaptureCopyMode.defaultsKey) }
+                ?? defaults.removeObject(forKey: CaptureCopyMode.defaultsKey)
+            savedLegacy.map { defaults.set($0, forKey: "copyAfterCapture") }
+                ?? defaults.removeObject(forKey: "copyAfterCapture")
+        }
+
+        defaults.removeObject(forKey: CaptureCopyMode.defaultsKey)
+        defaults.removeObject(forKey: "copyAfterCapture")
+        XCTAssertEqual(CaptureCopyMode.current, .image, "default is copying the image")
+
+        defaults.set(false, forKey: "copyAfterCapture")
+        XCTAssertEqual(CaptureCopyMode.current, .off, "legacy false migrates to off")
+
+        defaults.set(true, forKey: "copyAfterCapture")
+        XCTAssertEqual(CaptureCopyMode.current, .image, "legacy true migrates to image")
+
+        defaults.set(CaptureCopyMode.file.rawValue, forKey: CaptureCopyMode.defaultsKey)
+        XCTAssertEqual(CaptureCopyMode.current, .file, "explicit setting beats legacy")
+    }
 }

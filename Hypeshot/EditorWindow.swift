@@ -7,7 +7,7 @@ final class EditorWindowController: NSObject, NSWindowDelegate {
 
     private var window: NSWindow?
 
-    func show(screenshot: Screenshot) {
+    func show(screenshot: Screenshot, autoSavedTo savedURL: URL? = nil) {
         let viewModel = EditorViewModel(screenshot: screenshot)
         let view = EditorView(vm: viewModel)
             .environmentObject(ProStore.shared)
@@ -18,6 +18,9 @@ final class EditorWindowController: NSObject, NSWindowDelegate {
         sizeToFit(window: window, imageSize: screenshot.pixelSize)
         window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+        if let savedURL {
+            viewModel.showToast("Saved to \(savedURL.deletingLastPathComponent().lastPathComponent)")
+        }
     }
 
     private func makeWindow() -> NSWindow {
@@ -192,8 +195,19 @@ struct EditorView: View {
 
     private func save() {
         guard let image = Renderer.render(vm) else { return }
-        Exporter.saveWithPanel(image, preset: .standard, capturedAt: vm.screenshot.capturedAt,
-                               in: NSApp.keyWindow)
+        let saved = SaveLocationStore.shared.withAccess { folder -> String in
+            let url = Exporter.uniqueURL(in: folder,
+                                         preferredName: ExportPreset.standard.filename(for: vm.screenshot.capturedAt))
+            try Exporter.write(image, to: url, preset: .standard)
+            return folder.lastPathComponent
+        }
+        if let saved {
+            vm.showToast("Saved to \(saved)")
+        } else {
+            // No default folder configured (or it became inaccessible) — ask.
+            Exporter.saveWithPanel(image, preset: .standard, capturedAt: vm.screenshot.capturedAt,
+                                   in: NSApp.keyWindow)
+        }
     }
 
     private func copyText() {

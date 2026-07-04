@@ -81,6 +81,44 @@ struct BeautifySettings {
     var shadow = true
 }
 
+// MARK: - Capture behavior settings
+
+/// What lands on the clipboard right after a capture.
+enum CaptureCopyMode: String, CaseIterable, Identifiable {
+    case off, image, file
+
+    var id: String { rawValue }
+
+    var label: String {
+        switch self {
+        case .off: "Nothing"
+        case .image: "Image"
+        case .file: "Saved file"
+        }
+    }
+
+    static let defaultsKey = "captureCopyMode"
+    static let autoSaveKey = "autoSaveCaptures"
+    static let openEditorKey = "openEditorAfterCapture"
+
+    /// Whether the annotation editor opens after a capture (default on).
+    static var opensEditorAfterCapture: Bool {
+        UserDefaults.standard.object(forKey: openEditorKey) as? Bool ?? true
+    }
+
+    /// Current setting; migrates the pre-1.0 boolean "copyAfterCapture".
+    static var current: CaptureCopyMode {
+        let defaults = UserDefaults.standard
+        if let raw = defaults.string(forKey: defaultsKey), let mode = CaptureCopyMode(rawValue: raw) {
+            return mode
+        }
+        if let legacy = defaults.object(forKey: "copyAfterCapture") as? Bool {
+            return legacy ? .image : .off
+        }
+        return .image
+    }
+}
+
 // MARK: - Export presets
 
 enum ExportFormat: String, Codable, CaseIterable, Identifiable {

@@ -24,6 +24,7 @@
 		7B26873B4B804E2A94F14BF3 /* HistoryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9103FEB6DE71A5640891BE /* HistoryStoreTests.swift */; };
 		7B9A5517238390FF86999D64 /* ModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F350A04D4E764D8780B28E5 /* ModelsTests.swift */; };
 		858CFA50372E561C21B61A64 /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C222EB7D6C79A69199B634D /* HistoryStore.swift */; };
+		9518474222619C0BE41C0FA4 /* SaveLocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438F1B8DBA39CF39C7A2B77E /* SaveLocationStore.swift */; };
 		9A10BB83F68482D6B27B3DF6 /* PaywallWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC484E4B85AF8E5569B3A4C /* PaywallWindow.swift */; };
 		9F32812CF54A28B9FD262D62 /* HypeshotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF974AFCCCDAB101E16C83F /* HypeshotApp.swift */; };
 		A6AD9003881AFFC73034C80C /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6DB30F9EE7C7B47E9DFD4D /* Renderer.swift */; };
@@ -53,6 +54,7 @@
 		161E4C2281A113185AE77500 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		31AA70A6E17F60371C04A0B3 /* SelectionOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionOverlay.swift; sourceTree = "<group>"; };
 		3D9103FEB6DE71A5640891BE /* HistoryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStoreTests.swift; sourceTree = "<group>"; };
+		438F1B8DBA39CF39C7A2B77E /* SaveLocationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveLocationStore.swift; sourceTree = "<group>"; };
 		45DE4203C27977B1C2EA64D3 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
 		46D2FB0D6D08FE9EB658DC40 /* PinWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinWindow.swift; sourceTree = "<group>"; };
 		4DC484E4B85AF8E5569B3A4C /* PaywallWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallWindow.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				46D2FB0D6D08FE9EB658DC40 /* PinWindow.swift */,
 				EBE8F38B09225323AF15EE02 /* ProStore.swift */,
 				EA6DB30F9EE7C7B47E9DFD4D /* Renderer.swift */,
+				438F1B8DBA39CF39C7A2B77E /* SaveLocationStore.swift */,
 				31AA70A6E17F60371C04A0B3 /* SelectionOverlay.swift */,
 				161E4C2281A113185AE77500 /* SettingsView.swift */,
 			);
@@ -213,7 +216,11 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					050378FC418528AEC847A2C2 = {
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 2EQKU4538X;
+						ProvisioningStyle = Manual;
+					};
+					F62B7D86883512E18371F211 = {
+						DevelopmentTeam = 2EQKU4538X;
 					};
 				};
 			};
@@ -291,6 +298,7 @@
 				76F605CCA3186AD6FE7C4C70 /* PinWindow.swift in Sources */,
 				4F0042942E45E2EC8B23A46D /* ProStore.swift in Sources */,
 				A6AD9003881AFFC73034C80C /* Renderer.swift in Sources */,
+				9518474222619C0BE41C0FA4 /* SaveLocationStore.swift in Sources */,
 				D0C047E880C1F1E02EC8C97A /* SelectionOverlay.swift in Sources */,
 				3DA0297CC11DAF6DA5EBA622 /* SettingsView.swift in Sources */,
 			);
@@ -311,8 +319,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2EQKU4538X;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -331,10 +339,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Hypeshot/Hypeshot.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development: Mohamed Shafi (3V5L6HA7T7)";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2EQKU4538X;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Hypeshot/Info.plist;
@@ -345,6 +354,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shafi.hypeshot;
 				PRODUCT_NAME = Hypeshot;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
@@ -354,8 +364,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2EQKU4538X;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -374,10 +384,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Hypeshot/Hypeshot.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development: Mohamed Shafi (3V5L6HA7T7)";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2EQKU4538X;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Hypeshot/Info.plist;
@@ -388,6 +399,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shafi.hypeshot;
 				PRODUCT_NAME = Hypeshot;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};

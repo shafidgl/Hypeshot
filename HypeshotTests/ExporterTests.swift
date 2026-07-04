@@ -61,4 +61,31 @@ final class ExporterTests: XCTestCase {
         let objects = NSPasteboard.general.readObjects(forClasses: [NSImage.self]) as? [NSImage]
         XCTAssertEqual(objects?.isEmpty, false, "pasteboard should contain an image")
     }
+
+    func testUniqueURLNumbersCollisions() throws {
+        let dir = FileManager.default.temporaryDirectory
+            .appendingPathComponent("HypeshotTests-\(UUID().uuidString)", isDirectory: true)
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: dir) }
+
+        let first = Exporter.uniqueURL(in: dir, preferredName: "Shot.png")
+        XCTAssertEqual(first.lastPathComponent, "Shot.png")
+        try Data("x".utf8).write(to: first)
+
+        let second = Exporter.uniqueURL(in: dir, preferredName: "Shot.png")
+        XCTAssertEqual(second.lastPathComponent, "Shot 2.png")
+        try Data("x".utf8).write(to: second)
+
+        XCTAssertEqual(Exporter.uniqueURL(in: dir, preferredName: "Shot.png").lastPathComponent, "Shot 3.png")
+    }
+
+    func testCopyFileToPasteboardPutsFileURL() throws {
+        let url = tempURL("copy.png")
+        try Exporter.write(image, to: url, preset: .standard)
+        defer { try? FileManager.default.removeItem(at: url) }
+
+        Exporter.copyFileToPasteboard(url)
+        let urls = NSPasteboard.general.readObjects(forClasses: [NSURL.self]) as? [URL]
+        XCTAssertEqual(urls?.first?.lastPathComponent, url.lastPathComponent)
+    }
 }

@@ -11,6 +11,14 @@ enum Exporter {
         pasteboard.writeObjects([nsImage(from: image)])
     }
 
+    /// Puts the file itself on the clipboard (pastes as a file in Finder,
+    /// Slack, mail, etc. — not just pixels).
+    static func copyFileToPasteboard(_ url: URL) {
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.writeObjects([url as NSURL])
+    }
+
     /// Shows a save panel and writes the image with the given preset.
     static func saveWithPanel(_ image: CGImage, preset: ExportPreset, capturedAt: Date, in window: NSWindow?) {
         let panel = NSSavePanel()
@@ -59,6 +67,19 @@ enum Exporter {
             throw CocoaError(.fileWriteUnknown)
         }
         try data.write(to: url)
+    }
+
+    /// Appends " 2", " 3", … before the extension until the name is free.
+    static func uniqueURL(in folder: URL, preferredName: String) -> URL {
+        let base = (preferredName as NSString).deletingPathExtension
+        let ext = (preferredName as NSString).pathExtension
+        var url = folder.appendingPathComponent(preferredName)
+        var counter = 2
+        while FileManager.default.fileExists(atPath: url.path) {
+            url = folder.appendingPathComponent("\(base) \(counter).\(ext)")
+            counter += 1
+        }
+        return url
     }
 
     static func nsImage(from image: CGImage) -> NSImage {
