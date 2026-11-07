@@ -95,11 +95,19 @@ struct PaywallView: View {
                     .controlSize(.large)
                     .disabled(pro.purchaseInProgress)
 
-                    Button("Restore Purchase") {
-                        Task { await pro.restore() }
+                    if ProStore.isDirectDownload {
+                        Text("Pro is sold through the Mac App Store. The App Store version replaces this download.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 24)
+                    } else {
+                        Button("Restore Purchase") {
+                            Task { await pro.restore() }
+                        }
+                        .buttonStyle(.link)
+                        .font(.callout)
                     }
-                    .buttonStyle(.link)
-                    .font(.callout)
                 }
 
                 if let error = pro.lastError {
@@ -116,6 +124,7 @@ struct PaywallView: View {
     }
 
     private var purchaseTitle: String {
+        if ProStore.isDirectDownload { return "Get Pro on the Mac App Store" }
         if pro.purchaseInProgress { return "Purchasing…" }
         if let product = pro.product { return "Unlock Pro — \(product.displayPrice)" }
         return "Unlock Pro — $7.99"

@@ -10,6 +10,15 @@ final class ProStore: ObservableObject {
 
     static let productID = "com.shafi.hypeshot.pro"
 
+    /// The GitHub / direct-download build (`-configuration Direct`, defines DIRECT_DOWNLOAD)
+    /// has no StoreKit: Pro is sold only through the Mac App Store, so the paywall links there.
+#if DIRECT_DOWNLOAD
+    static let isDirectDownload = true
+#else
+    static let isDirectDownload = false
+#endif
+    static let macAppStoreURL = URL(string: "https://apps.apple.com/app/hypeshot-pro/id6787453009?mt=12")!
+
     @Published private(set) var isPro = false
     @Published private(set) var product: Product?
     @Published private(set) var purchaseInProgress = false
@@ -23,6 +32,14 @@ final class ProStore: ObservableObject {
     /// and keep listening for transaction updates (Ask to Buy, refunds,
     /// purchases from another device).
     func start() async {
+#if FORCE_PRO
+        // Personal build (SWIFT_ACTIVE_COMPILATION_CONDITIONS=FORCE_PRO):
+        // Pro is unlocked at compile time and StoreKit is bypassed entirely.
+        // Never defined in normal Debug/Release builds.
+        isPro = true
+#elseif DIRECT_DOWNLOAD
+        isPro = false
+#else
         updatesTask = Task { [weak self] in
             for await update in StoreKit.Transaction.updates {
                 await self?.handle(update)
@@ -30,6 +47,7 @@ final class ProStore: ObservableObject {
         }
         await refreshEntitlement()
         await loadProduct()
+#endif
     }
 
     deinit {
@@ -45,6 +63,10 @@ final class ProStore: ObservableObject {
     }
 
     func purchase() async {
+        if Self.isDirectDownload {
+            NSWorkspace.shared.open(Self.macAppStoreURL)
+            return
+        }
         guard !purchaseInProgress else { return }
         if product == nil { await loadProduct() }
         guard let product else { return }
@@ -69,6 +91,10 @@ final class ProStore: ObservableObject {
     }
 
     func restore() async {
+        if Self.isDirectDownload {
+            NSWorkspace.shared.open(Self.macAppStoreURL)
+            return
+        }
         do {
             try await AppStore.sync()
             await refreshEntitlement()
