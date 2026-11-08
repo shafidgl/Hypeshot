@@ -10,7 +10,7 @@ cask "hypeshot" do
   desc "Menu bar screenshot tool for macOS"
   homepage "https://github.com/shafidgl/Hypeshot"
 
-  depends_on macos: ">= :sonoma"
+  depends_on macos: ">= :tahoe"
 
   app "Hypeshot.app"
 
