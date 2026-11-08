@@ -43,7 +43,8 @@ Requires macOS 26 Tahoe. Apple silicon and Intel.
 **Homebrew:**
 
 ```sh
-brew install --cask shafidgl/tap/hypeshot
+brew tap shafidgl/tap && brew trust shafidgl/tap
+brew install --cask hypeshot
 ```
 
 **Build it yourself:**
