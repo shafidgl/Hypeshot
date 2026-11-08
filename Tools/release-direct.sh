@@ -21,8 +21,8 @@ APP="$OUT/Hypeshot.xcarchive/Products/Applications/Hypeshot.app"
 [[ -d "$APP" ]] || { echo "archive failed"; exit 1; }
 
 # Self-check: the direct build must be sandboxed and hardened.
-codesign -d --entitlements - "$APP" 2>&1 | grep -q "com.apple.security.app-sandbox" || { echo "sandbox entitlement missing"; exit 1; }
-codesign -dv "$APP" 2>&1 | grep -q "runtime" || { echo "hardened runtime missing"; exit 1; }
+codesign -d --entitlements - "$APP" 2>&1 | grep "com.apple.security.app-sandbox" >/dev/null || { echo "sandbox entitlement missing"; exit 1; }
+codesign -dv "$APP" 2>&1 | grep "runtime" >/dev/null || { echo "hardened runtime missing"; exit 1; }
 
 cp -R "$APP" "$OUT/dmg/"
 ln -s /Applications "$OUT/dmg/Applications"
