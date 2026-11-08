@@ -3,7 +3,7 @@
 #   brew install --cask shafidgl/tap/hypeshot
 cask "hypeshot" do
   version "1.0"
-  sha256 "REPLACE_WITH_SHA256_OF_NOTARIZED_DMG"
+  sha256 "6ca515e4491e3d6613869287a9d93c2f914d75691d971a64bbb55f32b5e374f9"
 
   url "https://github.com/shafidgl/Hypeshot/releases/download/v#{version}/Hypeshot-#{version}.dmg"
   name "Hypeshot"
